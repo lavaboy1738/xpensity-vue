@@ -1,12 +1,15 @@
 <template>
     <div>
-        stats
+        <Layout>
+            Stats
+        </Layout>
     </div>
 </template>
 
 <script>
+    import Layout from "../components/layout.vue";
     export default {
-        
+        components:{Layout}
     }
 </script>
 
