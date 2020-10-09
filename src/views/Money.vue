@@ -9,7 +9,7 @@
                     <li class="tag">utilities</li>
                 </ul>
                 <div class="new-tag">
-                    <button>new tag</button>
+                    <button>New Tag</button>
                 </div>
             </div>
             <div class="comments">
@@ -54,4 +54,33 @@
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+    .tags{
+        padding: 1.6em;
+        .current-tags{
+            font-size: 1.4em;
+            display: flex;
+
+            .tag{
+                height: 2em;
+                line-height: 2em;
+                padding-left: 1em;
+                padding-right: 1em;
+                border-radius: 1.2em;
+                background-color: lighten($primary-color, 10%);
+                margin-right: 1em;
+            }
+        }
+        .new-tag{
+            padding-top: 1.6em;
+            
+            button{
+                opacity: 0.6;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid;
+                padding: 0.1em 0.3em;
+            }
+        }
+    }
 </style>

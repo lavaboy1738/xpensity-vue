@@ -13,7 +13,7 @@
   font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333333;
+  color: $secondary-color;
 }
 
 </style>
