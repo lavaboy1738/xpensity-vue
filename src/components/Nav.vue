@@ -1,8 +1,8 @@
 <template>
     <div class="nav">
-      <router-link to="/money" class="item" ><i class="fas fa-plus"></i></router-link>
-      <router-link to="/tags" class="item" ><i class="fas fa-list"></i></router-link>
-      <router-link to="/stats" class="item" ><i class="fas fa-chart-bar"></i></router-link>
+      <router-link to="/money" class="item" active-class="selected" ><i class="far fa-plus-square"></i></router-link>
+      <router-link to="/tags" class="item" active-class="selected" ><i class="fas fa-list-ul"></i></router-link>
+      <router-link to="/stats" class="item" active-class="selected" ><i class="far fa-chart-bar"></i></router-link>
     </div>
 </template>
 
@@ -22,9 +22,13 @@
         justify-content: center;
         align-items: center;
         height: 5.6em;
+
+        &.selected{
+            background-color: #eeeeee
+        }
     }
 }
-.fas{
+.fas, .far{
     font-size: 3.3em;
     color: #333333;
 }
