@@ -1,48 +1,61 @@
 <template>
     <div>
-        <layout>
-            <div class="wrapper">
-                <div class="tags">
-                    <ul class="current-tags">
-                        <li class="tag">dine</li>
-                        <li class="tag">grocery</li>
-                        <li class="tag">gas</li>
-                        <li class="tag">utilities</li>
-                    </ul>
-                    <div class="new-tag">
-                        <button>New Tag</button>
-                    </div>
-                </div>
-                <div class="comments">
-                    <input type="text" placeholder="add comments">
-                </div>
-                <div class="types">
-                    <ul>
-                        <li class="type selected">Expenditure</li>
-                        <li class="type">Income</li>
-                    </ul>
-                </div>
-                <div class="numpad">
-                    <div class="display-number">100</div>
-                    <div class="numpad-buttons">
-                        <button class="numpad-button">1</button>
-                        <button class="numpad-button">2</button>
-                        <button class="numpad-button">3</button>
-                        <button class="numpad-button">Del.</button>
-                        <button class="numpad-button">4</button>
-                        <button class="numpad-button">5</button>
-                        <button class="numpad-button">6</button>
-                        <button class="numpad-button">C</button>
-                        <button class="numpad-button">7</button>
-                        <button class="numpad-button">8</button>
-                        <button class="numpad-button">9</button>
-                        <button class="numpad-button ok">OK</button>
-                        <button class="numpad-button zero">0</button>
-                        <button class="numpad-button dot">.</button>
-                    </div>
+        <Layout content-class="layout">
+
+
+            <div class="numpad">
+                <div class="display-number">100</div>
+                <div class="numpad-buttons">
+                    <button class="numpad-button">1</button>
+                    <button class="numpad-button">2</button>
+                    <button class="numpad-button">3</button>
+                    <button class="numpad-button">Del.</button>
+                    <button class="numpad-button">4</button>
+                    <button class="numpad-button">5</button>
+                    <button class="numpad-button">6</button>
+                    <button class="numpad-button">C</button>
+                    <button class="numpad-button">7</button>
+                    <button class="numpad-button">8</button>
+                    <button class="numpad-button">9</button>
+                    <button class="numpad-button ok">OK</button>
+                    <button class="numpad-button zero">0</button>
+                    <button class="numpad-button dot">.</button>
                 </div>
             </div>
-        </layout>
+            <div class="types">
+                <ul>
+                    <li class="type selected">Expenditure</li>
+                    <li class="type">Income</li>
+                </ul>
+            </div>
+            <div class="comments">
+                <input type="text" placeholder="add comments">
+            </div>
+            <div class="tags">
+                <ul class="current-tags">
+                    <li class="tag"><i class="fas fa-hamburger"></i></li>
+                    <li class="tag"><i class="fas fa-film"></i></li>
+                    <li class="tag"><i class="fas fa-gas-pump"></i></li>
+                    <li class="tag"><i class="fas fa-bus"></i></li>
+                    <li class="tag"><i class="fas fa-plane"></i></li>
+                    <li class="tag"><i class="fas fa-shopping-cart"></i></li>
+                    <li class="tag"><i class="fas fa-tools"></i></li>
+                    <li class="tag"><i class="fas fa-briefcase-medical"></i></li>
+                    <li class="tag"><i class="fas fa-home"></i></li>
+                    <li class="tag"><i class="fas fa-piggy-bank"></i></li>
+                    <li class="tag"><i class="fas fa-dollar-sign"></i></li>
+                                        <li class="tag"><i class="fas fa-piggy-bank"></i></li>
+                    <li class="tag"><i class="fas fa-dollar-sign"></i></li>
+                    <li class="tag new-tag">
+                        <button>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+
+        </Layout>
     </div>
 </template>
 
@@ -56,45 +69,46 @@
     }
 </script>
 
+<style lang="scss">
+    .layout {
+        display: flex;
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+    }
+</style>
+
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
     .tags {
-        padding: 1.6em;
-        height: 100%;
+        padding: 1em;
+        flex-grow: 1;
 
         .current-tags {
             font-size: 1.4em;
             font-weight: 300;
             display: flex;
+            flex-wrap: wrap;
 
             .tag {
                 height: 2em;
                 line-height: 2em;
                 padding-left: 1em;
                 padding-right: 1em;
+                padding-bottom: 1em;
                 border-radius: 1.2em;
                 background-color: lighten($primary-color, 10%);
-                margin-right: 1em;
+                margin-right: 0.7em;
+                margin-bottom: 0.7em;
             }
-        }
 
-        .new-tag {
-            padding-top: 1.6em;
-
-            button {
-                font-weight: 500;
-                opacity: 0.6;
-                background: transparent;
-                border: none;
-                border-bottom: 1px solid;
-                padding: 0.1em 0.3em;
+            .new-tag {
+                button {
+                    font-weight: 500;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
             }
         }
     }
@@ -127,7 +141,7 @@
                 align-items: center;
                 font-size: 2em;
                 font-weight: 200;
-                line-height: 3em;
+                line-height: 2.7em;
                 position: relative;
 
                 &.selected::after {
@@ -147,7 +161,7 @@
         .display-number {
             font-size: 3.6em;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            line-height: 2em;
+            line-height: 1.6em;
             padding-left: 1rem;
             padding-right: 1rem;
             text-align: right;
@@ -176,7 +190,7 @@
                     width: 50vw;
                 }
 
-                &.dot{
+                &.dot {
                     font-weight: 400;
                 }
 

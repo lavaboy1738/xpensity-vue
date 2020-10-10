@@ -1,6 +1,6 @@
 <template>
     <div class="layout-wrapper">
-        <div class="content">
+        <div class="content" :class="contentClass">
             <slot/>
         </div>
         <Nav/>
@@ -11,7 +11,8 @@
 import Nav from "./Nav.vue";
 export default {
     name: "Layout",
-    components: {Nav}
+    components: {Nav},
+    props:["contentClass"]
 }
 </script>
 
