@@ -14,6 +14,7 @@
     @import "~@/assets/style/helper.scss";
 
     .comments {
+        min-height: 4em;
         padding: 0 1.6em;
         background-color: lighten($primary-color, 16%);
         display: flex;

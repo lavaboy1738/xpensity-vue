@@ -29,7 +29,7 @@
                 align-items: center;
                 font-size: 2.2em;
                 font-weight: 200;
-                line-height: 2.7em;
+                line-height: 2.2em;
                 position: relative;
 
                 &.selected::after {
