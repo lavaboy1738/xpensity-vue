@@ -32,7 +32,7 @@
     .layout {
         display: flex;
         flex-direction: column-reverse;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 </style>
 

@@ -48,12 +48,12 @@
                 border: none;
                 font-size: 3em;
                 font-weight: 200;
-                height: 3.5rem;
+                height: 4rem;
                 outline: none;
 
                 &.ok {
                     float: right;
-                    height: 7rem;
+                    height: 8rem;
                     font-weight: 400;
                 }
 

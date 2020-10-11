@@ -27,7 +27,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 2em;
+                font-size: 2.2em;
                 font-weight: 200;
                 line-height: 2.7em;
                 position: relative;

@@ -1,19 +1,26 @@
 <template>
     <div class="tags">
         <ul class="current-tags">
-            <li class="tag"><i class="fas fa-hamburger"></i></li>
-            <li class="tag"><i class="fas fa-film"></i></li>
-            <li class="tag"><i class="fas fa-gas-pump"></i></li>
-            <li class="tag"><i class="fas fa-bus"></i></li>
-            <li class="tag"><i class="fas fa-plane"></i></li>
+            <!-- <li class="tag"><i class="fas fa-utensils"></i></li>
             <li class="tag"><i class="fas fa-shopping-cart"></i></li>
-            <li class="tag"><i class="fas fa-tools"></i></li>
-            <li class="tag"><i class="fas fa-briefcase-medical"></i></li>
+            <li class="tag"><i class="fas fa-bus"></i></li>
             <li class="tag"><i class="fas fa-home"></i></li>
+            <li class="tag"><i class="fas fa-tools"></i></li>
+            <li class="tag"><i class="fas fa-first-aid"></i></li>
             <li class="tag"><i class="fas fa-piggy-bank"></i></li>
-            <li class="tag"><i class="fas fa-dollar-sign"></i></li>
-            <li class="tag"><i class="fas fa-piggy-bank"></i></li>
-            <li class="tag"><i class="fas fa-dollar-sign"></i></li>
+            <li class="tag"><i class="fas fa-running"></i></li>
+            <li class="tag"><i class="fas fa-plane"></i></li>
+            <li class="tag"><i class="fas fa-paw"></i></li>
+            <li class="tag"><i class="fas fa-baby"></i></li> -->
+            <li class="tag">dine</li>
+            <li class="tag">shop</li>
+            <li class="tag">grocery</li>
+            <li class="tag">util</li>
+            <li class="tag">rent</li>
+            <li class="tag">subs</li>
+            <li class="tag">salary</li>
+            <li class="tag">saving</li>
+            <li class="tag">ent.</li>
             <li class="tag new-tag">
                 <button>
                     <i class="fas fa-plus"></i>
@@ -31,26 +38,24 @@
 
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
+
     .tags {
-        padding: 1em;
         flex-grow: 1;
+        overflow: auto;
+        width: 100%;
+        padding: 1em;
 
         .current-tags {
-            font-size: 1.4em;
             font-weight: 300;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
 
             .tag {
-                height: 2em;
-                line-height: 2em;
-                padding-left: 1em;
-                padding-right: 1em;
-                padding-bottom: 1em;
-                border-radius: 1.2em;
+                font-size: 1.5em;
+                padding: 0.3em 1em;
+                border-radius: 2em;
+                margin-right: 1em;
                 background-color: lighten($primary-color, 10%);
-                margin-right: 0.7em;
-                margin-bottom: 0.7em;
             }
 
             .new-tag {
