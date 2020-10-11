@@ -42,20 +42,28 @@
             flex-wrap: wrap;
 
             .tag {
-                font-size: 1.5em;
-                padding: 0.3em 1em;
-                border-radius: 2em;
-                margin-right: 0.7em;
-                margin-bottom: 0.7em;
+                height: 2em;
+                width: 2em;
+                font-size: 2em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 0.5em;
+                margin-right: 0.5em;
                 background-color: lighten($primary-color, 10%);
             }
 
             .new-tag {
+                font-weight: 500;
+                background-color: white;
+                border: 2px solid darken($primary-color, 10%);
+                outline: none;
+
                 button {
-                    font-weight: 500;
-                    background: transparent;
-                    border: none;
                     outline: none;
+                    color: darken($primary-color, 10%);
+                    background: none;
+                    border: none;
                 }
             }
         }

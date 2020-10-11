@@ -1,15 +1,33 @@
 <template>
     <div class="types">
         <ul>
-            <li class="type selected">Expenditure</li>
-            <li class="type">Income</li>
+            <li class="type left" 
+            :class="this.type==='-'? 'selected':''"
+            @click="selectType('-')">
+            Expenditure</li>
+            <li class="type right" 
+            :class="this.type==='+'? 'selected':''" @click="selectType('+')">
+            Income</li>
         </ul>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Types"
+        name: "Types",
+        data(){
+            return {
+                type: "-" //negative sign indicates expenditure, plus sign is income
+            }
+        },
+        methods:{
+            selectType(type){ //type can only be minus or plus sign
+                if(type !=="-" && type!=="+"){
+                    throw new Error("type is unknown")
+                }
+                this.type = type;
+            }
+        }
     }
 </script>
 
@@ -31,15 +49,34 @@
                 font-weight: 200;
                 line-height: 2.2em;
                 position: relative;
+                overflow: hidden;
 
-                &.selected::after {
+                //below is for the animation
+
+                &::after{
                     content: "";
                     position: absolute;
                     height: 0.1em;
                     width: 100%;
-                    background-color: $secondary-color;
-                    left: 0;
                     bottom: 0;
+                    transition: 0.3s all ease;
+                    background-color: $secondary-color;
+                }
+
+                &.left::after{
+                    right: -100%;
+                }
+
+                &.right::after{
+                    left: -100%;
+                }
+
+                &.left.selected::after {
+                    right: 0;
+                }
+
+                &.right.selected::after{
+                    left: 0;
                 }
             }
         }
