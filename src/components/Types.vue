@@ -1,32 +1,45 @@
 <template>
     <div class="types">
         <ul>
-            <li class="type left" 
-            :class="this.type==='-'? 'selected':''"
-            @click="selectType('-')">
-            Expenditure</li>
-            <li class="type right" 
-            :class="this.type==='+'? 'selected':''" @click="selectType('+')">
-            Income</li>
+            <li class="type left" :class="this.type==='-'? 'selected':''" @click="selectType('-')">
+                Expenditure</li>
+            <li class="type right" :class="this.type==='+'? 'selected':''" @click="selectType('+')">
+                Income</li>
         </ul>
     </div>
 </template>
 
-<script>
-    export default {
-        name: "Types",
-        data(){
-            return {
-                type: "-" //negative sign indicates expenditure, plus sign is income
+// this is the javascript version
+// export default {
+//  name: "Types",
+//  data(){
+//      return {
+//          type: "-" //negative sign indicates expenditure, plus sign is income
+//      }
+// },
+//  methods:{
+//      selectType(type){ //type can only be minus or plus sign
+//          if(type !=="-" && type!=="+"){
+//              throw new Error("type is unknown")
+//          }
+//          this.type = type;
+//      }
+//  }
+// }
+
+//below is the typescript version
+<script lang="ts">
+    import Vue from 'vue'
+    import {Component} from "vue-property-decorator";
+
+    @Component
+    export default class Types extends Vue {
+        type = '-'
+        selectType(type: string) { //type can only be minus or plus sign
+            if (type !== "-" && type !== "+") {
+                throw new Error("type is unknown")
             }
-        },
-        methods:{
-            selectType(type){ //type can only be minus or plus sign
-                if(type !=="-" && type!=="+"){
-                    throw new Error("type is unknown")
-                }
-                this.type = type;
-            }
+            this.type = type;
         }
     }
 </script>
@@ -53,21 +66,21 @@
 
                 //below is for the animation
 
-                &::after{
+                &::after {
                     content: "";
                     position: absolute;
                     height: 0.1em;
                     width: 100%;
                     bottom: 0;
-                    transition: 0.3s all ease;
+                    transition: 0.4s all ease-in;
                     background-color: $secondary-color;
                 }
 
-                &.left::after{
+                &.left::after {
                     right: -100%;
                 }
 
-                &.right::after{
+                &.right::after {
                     left: -100%;
                 }
 
@@ -75,7 +88,7 @@
                     right: 0;
                 }
 
-                &.right.selected::after{
+                &.right.selected::after {
                     left: 0;
                 }
             }
