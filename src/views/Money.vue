@@ -1,7 +1,7 @@
 <template>
     <div>
         <Layout content-class="layout">
-            <Numpad @update:value="confirmAmount" />
+            <Numpad @update:value="confirmAmount" @submit="addStatement" />
             <Types :type.sync="record.type"/>
             <Comments @update:value="updateComments" />
             <TagsListing :data-source="tags" :newTags.sync="newTags" @update:selectedTag = "updateSelectedTag"/>
@@ -12,7 +12,7 @@
 <script lang="ts">
     import Vue from "vue";
     import {
-        Component
+        Component, Watch
     } from "vue-property-decorator";
     import Layout from "../components/layout.vue";
     import Numpad from "../components/Numpad.vue";
@@ -43,6 +43,9 @@
             type: "-",
             amount: 0
         }
+
+        statements: Record[] = [];
+
         tags = ['fa-utensils',
             'fa-shopping-cart',
             'fa-bus',
@@ -64,6 +67,16 @@
         }
         confirmAmount(num: string){
             this.record.amount = Number(num);
+        }
+        addStatement(){
+            const recordClone = JSON.parse(JSON.stringify(this.record));
+            this.statements.push(recordClone);
+            console.log(this.statements);
+        }
+
+        @Watch("statements")
+        onStatementsChange(){
+            window.localStorage.setItem("XpensityStatements", JSON.stringify(this.statements));
         }
     }
 </script>
