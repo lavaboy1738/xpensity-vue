@@ -1,6 +1,7 @@
 <template>
             <div class="comments">
-                <input type="text" placeholder="add comments" :value="value" @input="onInput">
+                <!-- <input type="text" placeholder="add comments" :value="value" @input="onInput"> -->
+                <input type="text" placeholder = "add comments" v-model="value">
             </div>
 </template>
 
@@ -10,10 +11,10 @@
     @Component
     export default class Comments extends Vue{
         value = "";
-        onInput(event: KeyboardEvent){
-            const input = event.target as HTMLInputElement;
-            this.value = input.value;
-        }
+        // onInput(event: KeyboardEvent){
+        //     const input = event.target as HTMLInputElement;
+        //     this.value = input.value;
+        // }
     }
 </script>
 
