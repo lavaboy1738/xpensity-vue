@@ -13,7 +13,7 @@
             <button class="numpad-button" @click="inputNum" >7</button>
             <button class="numpad-button" @click="inputNum" >8</button>
             <button class="numpad-button" @click="inputNum" >9</button>
-            <button class="numpad-button ok">OK</button>
+            <button class="numpad-button ok" @click="ok">OK</button>
             <button class="numpad-button zero" @click="inputNum" >0</button>
             <button class="numpad-button dot" @click="inputNum" >.</button>
         </div>
@@ -52,6 +52,11 @@
 
         clearNum(){
             this.output = "0";
+        }
+
+        ok(){
+            this.$emit("update:value", this.output);
+            this.output="0";
         }
     }
 </script>

@@ -1,45 +1,69 @@
 <template>
     <div>
         <Layout content-class="layout">
-            <Numpad />
-            <Types/>
-            <Comments />
-            <TagsListing :data-source="tags" />
+            <Numpad @update:value="confirmAmount" />
+            <Types :type.sync="record.type"/>
+            <Comments @update:value="updateComments" />
+            <TagsListing :data-source="tags" :newTags.sync="newTags" @update:selectedTag = "updateSelectedTag"/>
         </Layout>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from "vue";
+    import {
+        Component
+    } from "vue-property-decorator";
     import Layout from "../components/layout.vue";
     import Numpad from "../components/Numpad.vue";
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
 
-    export default {
-        name: "Money",
+    type Record = {
+        tag: string;
+        comment: string;
+        type: string;
+        amount: number;
+    }
+
+    @Component({
         components: {
             Layout,
             Numpad,
             TagsListing,
             Types,
             Comments
-        },
-        data() {
-            return {
-                tags: ['fa-utensils',
-                    'fa-shopping-cart',
-                    'fa-bus',
-                    'fa-home',
-                    'fa-tools',
-                    'fa-first-aid',
-                    'fa-piggy-bank',
-                    'fa-running',
-                    'fa-plane',
-                    'fa-paw',
-                    'fa-baby'
-                ]
-            }
+        }
+    })
+    export default class Money extends Vue {
+        record: Record = {
+            tag: "",
+            comment: "",
+            type: "-",
+            amount: 0
+        }
+        tags = ['fa-utensils',
+            'fa-shopping-cart',
+            'fa-bus',
+            'fa-home',
+            'fa-tools',
+            'fa-first-aid',
+            'fa-piggy-bank',
+            'fa-running',
+            'fa-plane',
+            'fa-paw',
+            'fa-baby'
+        ]
+        newTags = []
+        updateSelectedTag(selectedTag: string){
+            this.record.tag = selectedTag;
+        }
+        updateComments(comments: string){
+            this.record.comment = comments;
+        }
+        confirmAmount(num: string){
+            this.record.amount = Number(num);
         }
     }
 </script>
