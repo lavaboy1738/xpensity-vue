@@ -1,17 +1,9 @@
 <template>
     <div class="tags">
         <ul class="current-tags">
-            <li class="tag"><i class="fas fa-utensils"></i></li>
-            <li class="tag"><i class="fas fa-shopping-cart"></i></li>
-            <li class="tag"><i class="fas fa-bus"></i></li>
-            <li class="tag"><i class="fas fa-home"></i></li>
-            <li class="tag"><i class="fas fa-tools"></i></li>
-            <li class="tag"><i class="fas fa-first-aid"></i></li>
-            <li class="tag"><i class="fas fa-piggy-bank"></i></li>
-            <li class="tag"><i class="fas fa-running"></i></li>
-            <li class="tag"><i class="fas fa-plane"></i></li>
-            <li class="tag"><i class="fas fa-paw"></i></li>
-            <li class="tag"><i class="fas fa-baby"></i></li>
+            <li class="tag" 
+            v-for="tag in dataSource" :key="tag"
+            @click="select(tag)" :class="selectedTag === tag? 'selected':''"><i :class="`fas ${tag}`"></i></li>
             <li class="tag new-tag">
                 <button>
                     <i class="fas fa-plus"></i>
@@ -21,9 +13,16 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: "TagsListing"
+<script lang="ts">
+    import Vue from 'vue'
+    import {Component, Prop} from "vue-property-decorator";
+    @Component
+    export default class TagListing extends Vue {
+        @Prop(Array) dataSource: string[] | undefined;
+        selectedTag = "";
+        select(tag: string){
+            this.selectedTag = tag;
+        }
     }
 </script>
 
@@ -51,6 +50,11 @@
                 margin-bottom: 0.5em;
                 margin-right: 0.5em;
                 background-color: lighten($primary-color, 10%);
+            }
+
+            .selected{
+                color: white;
+                background-color: darken($primary-color, 15%)
             }
 
             .new-tag {

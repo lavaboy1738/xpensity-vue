@@ -1,10 +1,10 @@
 <template>
     <div>
         <Layout content-class="layout">
-            <Numpad/>
+            <Numpad />
             <Types/>
-            <Comments/>
-            <TagsListing/>
+            <Comments />
+            <TagsListing :data-source="tags" />
         </Layout>
     </div>
 </template>
@@ -24,6 +24,22 @@
             TagsListing,
             Types,
             Comments
+        },
+        data() {
+            return {
+                tags: ['fa-utensils',
+                    'fa-shopping-cart',
+                    'fa-bus',
+                    'fa-home',
+                    'fa-tools',
+                    'fa-first-aid',
+                    'fa-piggy-bank',
+                    'fa-running',
+                    'fa-plane',
+                    'fa-paw',
+                    'fa-baby'
+                ]
+            }
         }
     }
 </script>
