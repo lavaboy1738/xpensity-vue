@@ -33,6 +33,7 @@
     import {Component} from "vue-property-decorator";
 
     @Component
+
     export default class Types extends Vue {
         type = '-'
         selectType(type: string) { //type can only be minus or plus sign
