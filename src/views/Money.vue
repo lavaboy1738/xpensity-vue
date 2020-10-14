@@ -20,11 +20,14 @@
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
 
+    window.localStorage.setItem("XpensityVersion", "0.0.1");
+
     type Record = {
         tag: string;
         comment: string;
         type: string;
         amount: number;
+        createdAt: Date | undefined;
     }
 
     @Component({
@@ -41,10 +44,11 @@
             tag: "",
             comment: "",
             type: "-",
-            amount: 0
+            amount: 0,
+            createdAt: undefined
         }
 
-        statements: Record[] = [];
+        statements: Record[] = JSON.parse(window.localStorage.getItem("XpensityStatements")||"[]");
 
         tags = ['fa-utensils',
             'fa-shopping-cart',
@@ -69,7 +73,8 @@
             this.record.amount = Number(num);
         }
         addStatement(){
-            const recordClone = JSON.parse(JSON.stringify(this.record));
+            const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+            recordClone.createdAt = new Date();
             this.statements.push(recordClone);
             console.log(this.statements);
         }
