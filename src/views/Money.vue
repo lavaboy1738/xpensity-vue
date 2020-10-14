@@ -2,7 +2,7 @@
     <div>
         <Layout content-class="layout">
             <Numpad @update:value="confirmAmount" @submit="addStatement" />
-            <Types :type.sync="record.type"/>
+            <Types :type.sync="this.singleStatement.type"/>
             <Comments @update:value="updateComments" />
             <TagsListing :data-source="tags" :newTags.sync="newTags" @update:selectedTag = "updateSelectedTag"/>
         </Layout>
@@ -19,10 +19,11 @@
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
+    import model from "../model";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
 
-    type Record = {
+    type Statement = {
         tag: string;
         comment: string;
         type: string;
@@ -40,7 +41,7 @@
         }
     })
     export default class Money extends Vue {
-        record: Record = {
+        singleStatement: Statement = {
             tag: "",
             comment: "",
             type: "-",
@@ -48,7 +49,7 @@
             createdAt: undefined
         }
 
-        statements: Record[] = JSON.parse(window.localStorage.getItem("XpensityStatements")||"[]");
+        statements = model.fetch();
 
         tags = ['fa-utensils',
             'fa-shopping-cart',
@@ -64,24 +65,23 @@
         ]
         newTags = []
         updateSelectedTag(selectedTag: string){
-            this.record.tag = selectedTag;
+            this.singleStatement.tag = selectedTag;
         }
         updateComments(comments: string){
-            this.record.comment = comments;
+            this.singleStatement.comment = comments;
         }
         confirmAmount(num: string){
-            this.record.amount = Number(num);
+            this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            const recordClone: Record = JSON.parse(JSON.stringify(this.record));
-            recordClone.createdAt = new Date();
-            this.statements.push(recordClone);
-            console.log(this.statements);
+            const statementClone = model.cloneStatement(this.singleStatement);
+            statementClone.createdAt = new Date();
+            this.statements.push(statementClone);
         }
 
         @Watch("statements")
         onStatementsChange(){
-            window.localStorage.setItem("XpensityStatements", JSON.stringify(this.statements));
+            model.save(this.statements);
         }
     }
 </script>
