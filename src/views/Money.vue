@@ -2,7 +2,7 @@
     <div>
         <Layout content-class="layout">
             <Numpad @update:value="confirmAmount" @submit="addStatement" />
-            <Types :type.sync="this.singleStatement.type"/>
+            <Types :type.sync="singleStatement.type"/>
             <Comments @update:value="updateComments" />
             <TagsListing :data-source="tags" :newTags.sync="newTags" @update:selectedTag = "updateSelectedTag"/>
         </Layout>
@@ -22,14 +22,6 @@
     import model from "../model";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
-
-    type Statement = {
-        tag: string;
-        comment: string;
-        type: string;
-        amount: number;
-        createdAt: Date | undefined;
-    }
 
     @Component({
         components: {
