@@ -7,7 +7,7 @@ const model = {
         return JSON.parse(window.localStorage.getItem(localStorageItemName)||"[]") as Statement[]
 
     },
-    save(data: Statement){
+    save(data: Statement | Statement[]){
         return window.localStorage.setItem(localStorageItemName, JSON.stringify(data))
     }
 }

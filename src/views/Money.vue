@@ -11,9 +11,7 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {
-        Component, Watch
-    } from "vue-property-decorator";
+    import {Component, Watch} from "vue-property-decorator";
     import Layout from "../components/layout.vue";
     import Numpad from "../components/Numpad.vue";
     import TagsListing from "../components/TagsListing.vue";
