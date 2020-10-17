@@ -89,6 +89,7 @@
                 outline: none;
 
                 &.ok {
+                    color: #666;
                     float: right;
                     height: 8rem;
                     font-weight: 400;
@@ -130,7 +131,7 @@
                 }
 
                 &:nth-child(12) {
-                    background: darken($primary-color, 1%);
+                    background: darken($primary-color, 2%);
                 }
 
                 &:nth-child(14) {

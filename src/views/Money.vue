@@ -17,9 +17,11 @@
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
-    import model from "../model";
+    import statementList from "../models/statements.model";
+    import tagList from "../models/taglist.model";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
+    const savedTags = tagList.fetch();
 
     @Component({
         components: {
@@ -39,7 +41,7 @@
             createdAt: undefined
         }
 
-        statements = model.fetch();
+        statements = statementList.fetch();
 
         tags = ['fa-utensils',
             'fa-shopping-cart',
@@ -53,7 +55,7 @@
             'fa-paw',
             'fa-baby'
         ]
-        newTags = []
+        newTags = savedTags;
         updateSelectedTag(selectedTag: string){
             this.singleStatement.tag = selectedTag;
         }
@@ -64,14 +66,14 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            const statementClone = model.cloneStatement(this.singleStatement);
+            const statementClone = statementList.cloneStatement(this.singleStatement);
             statementClone.createdAt = new Date();
             this.statements.push(statementClone);
         }
 
         @Watch("statements")
         onStatementsChange(){
-            model.save(this.statements);
+            statementList.save(this.statements);
         }
     }
 </script>

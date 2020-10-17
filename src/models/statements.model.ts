@@ -1,5 +1,5 @@
 const localStorageItemName = "XpensityStatements"
-const model = {
+const statementList = {
     cloneStatement(data: Statement | Statement[]){
         return JSON.parse(JSON.stringify(data))
     },
@@ -12,4 +12,4 @@ const model = {
     }
 }
 
-export default model;
+export default statementList;

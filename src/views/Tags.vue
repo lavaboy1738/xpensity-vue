@@ -2,22 +2,40 @@
     <div>
         <Layout>
             <ol class="tag-list">
-                <li class="tag"> <span>subs</span> <i class="fas fa-chevron-right"></i></li>
-                <li class="tag"> <span>dental</span> <i class="fas fa-chevron-right"></i></li>
-                <li class="tag"> <span>amazon</span> <i class="fas fa-chevron-right"></i></li>
-                <li class="tag"> <span>fines</span> <i class="fas fa-chevron-right"></i></li>
+                <li v-for="tag in savedTags" :key="tag" class="tag"> <span>{{tag}}</span> <i class="fas fa-chevron-right"></i></li>
             </ol>
             <div class="button-wrapper">
-                <button class="new-tag">New Tag </button>
+                <button class="new-tag" @click="createTag">New Tag </button>
             </div>
         </Layout>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from "vue";
+    import {Component} from "vue-property-decorator";
+    import tagList from "@/models/taglist.model";
     import Layout from "../components/layout.vue";
-    export default {
+
+    tagList.fetch();
+
+    @Component({
         components:{Layout}
+    })
+    export default class Tags extends Vue{
+        savedTags = tagList.data;
+
+        createTag(){
+            const tagName = window.prompt("New Tag Name");
+            if(tagName){
+                const message = tagList.create(tagName);
+                if(message==="duplicated"){
+                    window.alert("Duplicated Tag Name")
+                }
+            }else{
+                window.alert("Tag Name Cannot Be Empty")
+            }
+        }
     }
 </script>
 
