@@ -24,7 +24,7 @@ const router = new VueRouter({
       component: Tags
     },
     {
-      path: "/tags/edit",
+      path: "/tags/edit/:id",
       component: EditTag
     },
     {
