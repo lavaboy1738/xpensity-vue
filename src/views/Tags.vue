@@ -1,9 +1,16 @@
 <template>
     <div>
         <Layout>
-            <ol class="tag-list">
-                <li v-for="tag in savedTags" :key="tag.id" class="tag"> <span>{{tag.name}}</span> <i class="fas fa-chevron-right"></i></li>
-            </ol>
+            <div class="tag-list">
+                <router-link 
+                :to="`/tags/edit/${tag.id}`"
+                v-for="tag in savedTags" 
+                :key="tag.id" 
+                class="tag"> 
+                    <span>{{tag.name}}</span> 
+                    <i class="fas fa-chevron-right"></i>
+                </router-link>
+            </div>
             <div class="button-wrapper">
                 <button class="new-tag" @click="createTag">New Tag </button>
             </div>
@@ -44,7 +51,7 @@
     .tag-list{
         background-color: white;
         font-size: 1.6em;
-        li{
+        .tag{
             min-height: 2.5em;
             border-bottom: 1px solid #e6e6e6;
             display: flex;
