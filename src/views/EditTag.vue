@@ -1,17 +1,17 @@
 <template>
     <Layout>
         <div class="top-nav">
-            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left" @click="back"></i>
             <span class="title">Edit Tag</span>
             <span class="right"></span>
         </div>
         <div class="tag-info">
             <span class="left">Tag Name: </span>
-            <span class="tag-name">Tag Name</span>
+            <span class="tag-name">{{this.tag.name}}</span>
         </div>
         <div class="button-wrapper">
-            <DefaultButton>Edit Tag</DefaultButton>
-            <DefaultButton>Remove</DefaultButton>
+            <DefaultButton @click.native="edit">Edit Tag</DefaultButton>
+            <DefaultButton @click.native="remove">Remove</DefaultButton>
         </div>
     </Layout>
 </template>
@@ -25,16 +25,37 @@
     @Component({components:{DefaultButton}})
 
     export default class EditTag extends Vue{
+        tag?: {id: string; name: string} = undefined;
+        back(){
+            this.$router.replace("/tags")
+        }
         created(){
             const id = this.$route.params.id
             tagList.fetch();
             const savedTags = tagList.data;
             const tag = savedTags.filter(tag=> tag.id === id)[0]
             if(tag){
-                console.log(tag);
+                this.tag = tag;
             }else{
                 this.$router.replace("/404")
             }
+        }
+        edit(){
+            const id = this.$route.params.id
+            const newTagName = window.prompt("New Tag Name");
+            if(newTagName){
+                const message = tagList.update(id, newTagName);
+                if(message==="duplicated"){
+                    window.alert("Duplicated Tag Name")
+                }else{
+                    this.$router.replace("/tags")
+                }
+            }else{
+                window.alert("Tag Name Cannot Be Empty");
+            }
+        }
+        remove(){
+            console.log("remove")
         }
     }
 </script>

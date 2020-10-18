@@ -8,6 +8,7 @@ type TagList = {
     fetch: () => Tag[];
     create: (name: string) => "success" | "duplicated";
     save: () => void;
+    update: (id: string, name: string) => "success" | "not found" | "duplicated";
 }
 const tagList: TagList = {
     data: [],
@@ -25,6 +26,22 @@ const tagList: TagList = {
         this.data.push({id: name, name: name});
         this.save();
         return "success";
+    },
+    update(id, newName){
+        const idList = this.data.map(item=> item.id);
+        if(idList.indexOf(id)>=0){
+            const nameList = this.data.map(item=> item.name);
+            if(nameList.indexOf(newName) >= 0){
+                return "duplicated"
+            }else{
+                const tag = this.data.filter(item=> item.id === id)[0];
+                tag.name = newName;
+                this.save();
+                return "success"
+            }
+        }else{
+            return "not found"
+        }
     }
 }
 
