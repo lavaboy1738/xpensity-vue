@@ -34,7 +34,7 @@
             if (tagName === ""){
                 window.alert("Tag name cannot be empty.")
             }else if(this.newTags){
-                this.$emit('update:newTags', [...this.newTags, tagName]);
+                this.$emit('update:newTags', [...this.newTags, {id: tagName, name: tagName}]);
             }
         }
 

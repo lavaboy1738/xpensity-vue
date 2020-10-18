@@ -48,14 +48,19 @@
                 if(message==="duplicated"){
                     window.alert("Duplicated Tag Name")
                 }else{
-                    this.$router.replace("/tags")
+                    // this.$router.back(); original methods, but if user access this page directly, it won't work
+                    this.$router.replace("/tags");
                 }
             }else{
                 window.alert("Tag Name Cannot Be Empty");
             }
         }
         remove(){
-            console.log("remove")
+            if(this.tag){
+                tagList.remove(this.tag.id);
+                // this.$router.back();
+                this.$router.replace("/tags");
+            }
         }
     }
 </script>
