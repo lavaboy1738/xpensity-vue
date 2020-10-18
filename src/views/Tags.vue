@@ -2,7 +2,7 @@
     <div>
         <Layout>
             <ol class="tag-list">
-                <li v-for="tag in savedTags" :key="tag" class="tag"> <span>{{tag}}</span> <i class="fas fa-chevron-right"></i></li>
+                <li v-for="tag in savedTags" :key="tag" class="tag.id"> <span>{{tag.name}}</span> <i class="fas fa-chevron-right"></i></li>
             </ol>
             <div class="button-wrapper">
                 <button class="new-tag" @click="createTag">New Tag </button>
