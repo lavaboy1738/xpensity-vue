@@ -5,8 +5,8 @@
             v-for="tag in dataSource" :key="tag"
             @click="select(tag)" :class="selectedTag === tag? 'selected':''"><i :class="`fas ${tag}`"></i></li>
             <li class="new-tag"
-            v-for="tag in newTags" :key="tag"
-            @click="select(tag)" :class="selectedTag === tag? 'selected':''">{{tag}}</li>
+            v-for="tag in newTags" :key="tag.id"
+            @click="select(tag)" :class="selectedTag === tag? 'selected':''">{{tag.name}}</li>
             <li class="tag create-tag">
                 <button @click="createTag">
                     <i class="fas fa-plus"></i>

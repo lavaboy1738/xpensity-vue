@@ -12,7 +12,7 @@
                 </router-link>
             </div>
             <div class="button-wrapper">
-                <button class="new-tag" @click="createTag">New Tag </button>
+                <DefaultButton @click.native="createTag">New Tag</DefaultButton>
             </div>
         </Layout>
     </div>
@@ -23,11 +23,15 @@
     import {Component} from "vue-property-decorator";
     import tagList from "@/models/taglist.model";
     import Layout from "../components/layout.vue";
+    import DefaultButton from "../components/DefaultButton.vue";
 
     tagList.fetch();
 
     @Component({
-        components:{Layout}
+        components:{
+            Layout,
+            DefaultButton
+        }
     })
     export default class Tags extends Vue{
         savedTags = tagList.data;
@@ -67,15 +71,5 @@
     .button-wrapper{
         text-align: center;
         margin-top: 4em;
-        .new-tag{
-        padding: 0.3em 1em;
-        font-size: 1.6em;
-        font-weight: 400;
-        color: white;
-        border: none;
-        border-radius: 0.3em;
-        outline: none;
-        background: darken($primary-color, 10%);
-    }
     }
 </style>
