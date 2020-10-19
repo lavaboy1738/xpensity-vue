@@ -57,9 +57,10 @@
         }
         remove(){
             if(this.tag){
-                tagList.remove(this.tag.id);
-                // this.$router.back();
-                this.$router.replace("/tags");
+                if(tagList.remove(this.tag.id)){
+                    // this.$router.back();
+                    this.$router.replace("/tags")
+                }
             }
         }
     }
