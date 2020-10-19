@@ -25,8 +25,6 @@
     import Layout from "../components/layout.vue";
     import DefaultButton from "../components/DefaultButton.vue";
 
-    tagList.fetch();
-
     @Component({
         components:{
             Layout,
@@ -34,7 +32,7 @@
         }
     })
     export default class Tags extends Vue{
-        savedTags = tagList.data;
+        savedTags = window.tagList;
 
         createTag(){
             const tagName = window.prompt("New Tag Name");

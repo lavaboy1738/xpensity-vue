@@ -21,7 +21,7 @@
     import tagList from "../models/taglist.model";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
-    const savedTags = tagList.fetch();
+    
     const statements = statementList.fetch();
 
     @Component({
@@ -34,7 +34,7 @@
         }
     })
     export default class Money extends Vue {
-        newTags = savedTags;
+        newTags = window.tagList;
         statements: Statement[] = statements;
         singleStatement: Statement = {
             tag: "",
