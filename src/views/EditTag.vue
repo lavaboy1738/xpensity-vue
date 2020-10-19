@@ -59,7 +59,7 @@
             if(this.tag){
                 if(tagList.remove(this.tag.id)){
                     // this.$router.back();
-                    this.$router.replace("/tags")
+                    this.$router.back();
                 }
             }
         }

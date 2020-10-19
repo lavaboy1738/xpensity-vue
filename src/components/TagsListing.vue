@@ -19,22 +19,22 @@
 <script lang="ts">
     import Vue from 'vue'
     import {Component, Prop, Watch} from "vue-property-decorator";
+    import tagList from "../models/taglist.model";
     @Component
     export default class TagListing extends Vue {
         @Prop(Array) readonly dataSource: string[] | undefined;
-        @Prop(Array) readonly newTags: string[] | undefined;
+        @Prop(Array) readonly newTags: Tag[] | undefined;
         selectedTag = "";
-        rawhtml= "<li class='tag'>hello</li>";
         select(tag: string){
             this.selectedTag = tag;
             this.$emit("selectedTag", this.selectedTag);
         }
         createTag(){
             const tagName = window.prompt("New Tag Name");
-            if (tagName === ""){
-                window.alert("Tag name cannot be empty.")
-            }else if(this.newTags){
-                this.$emit('update:newTags', [...this.newTags, {id: tagName, name: tagName}]);
+            if(tagName){
+                window.createTag(tagName)
+            }else{
+                window.alert("Tag Name Cannot Be Empty");
             }
         }
 

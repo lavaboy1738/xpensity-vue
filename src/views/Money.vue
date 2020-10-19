@@ -35,6 +35,7 @@
     })
     export default class Money extends Vue {
         newTags = window.tagList;
+
         statements: Statement[] = statements;
         singleStatement: Statement = {
             tag: "",
