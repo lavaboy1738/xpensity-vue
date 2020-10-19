@@ -6,6 +6,7 @@ import store from './store'
 import Nav from "@/components/Nav.vue";
 import Layout from "./components/layout.vue";
 import tagList from "./models/taglist.model";
+import statementList from "./models/statements.model";
 
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faUserSecret, faWindowClose} from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +18,13 @@ Vue.config.productionTip = false
 Vue.component("Layout", Layout);
 Vue.component("Nav", Nav);
 
+//statements store
+window.statementList = statementList.fetch();
+window.createStatement = (statement: Statement) => {
+  statementList.create(statement)
+}
+
+//tag store
 window.tagList = tagList.fetch();
 window.findTag = (id: string) => {
   return window.tagList.filter(tag=> tag.id === id)[0]

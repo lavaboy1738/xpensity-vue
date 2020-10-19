@@ -11,18 +11,16 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component, Watch} from "vue-property-decorator";
+    import {Component} from "vue-property-decorator";
     import Layout from "../components/layout.vue";
     import Numpad from "../components/Numpad.vue";
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
-    import statementList from "../models/statements.model";
 
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
-    
-    const statements = statementList.fetch();
+
 
     @Component({
         components: {
@@ -36,7 +34,8 @@
     export default class Money extends Vue {
         newTags = window.tagList;
 
-        statements: Statement[] = statements;
+        statements = window.statementList;
+
         singleStatement: Statement = {
             tag: "",
             comment: "",
@@ -68,13 +67,13 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            statementList.create(this.singleStatement);
+            window.createStatement(this.singleStatement);
         }
 
-        @Watch("statements")
-        onStatementsChange(){
-            statementList.save();
-        }
+        // @Watch("statements")
+        // onStatementsChange(){
+        //     statementList.save();
+        // }
     }
 </script>
 

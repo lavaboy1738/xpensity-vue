@@ -11,6 +11,7 @@ const statementList = {
         const statementClone = clone(statement);
         statementClone.createdAt = new Date();
         this.data.push(statementClone);
+        this.save();
     },
     save(){
         return window.localStorage.setItem(localStorageItemName, JSON.stringify(this.data))
