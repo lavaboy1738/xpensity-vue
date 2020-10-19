@@ -22,6 +22,7 @@
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
     const savedTags = tagList.fetch();
+    const statements = statementList.fetch();
 
     @Component({
         components: {
@@ -33,6 +34,8 @@
         }
     })
     export default class Money extends Vue {
+        newTags = savedTags;
+        statements: Statement[] = statements;
         singleStatement: Statement = {
             tag: "",
             comment: "",
@@ -40,8 +43,6 @@
             amount: 0,
             createdAt: undefined
         }
-
-        statements = statementList.fetch();
 
         tags = ['fa-utensils',
             'fa-shopping-cart',
@@ -55,7 +56,7 @@
             'fa-paw',
             'fa-baby'
         ]
-        newTags = savedTags;
+
         updateSelectedTag(selectedTag: string){
             this.singleStatement.tag = selectedTag;
         }
@@ -66,14 +67,12 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            const statementClone = statementList.cloneStatement(this.singleStatement);
-            statementClone.createdAt = new Date();
-            this.statements.push(statementClone);
+            statementList.create(this.singleStatement);
         }
 
         @Watch("statements")
         onStatementsChange(){
-            statementList.save(this.statements);
+            statementList.save();
         }
     }
 </script>

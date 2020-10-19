@@ -1,14 +1,19 @@
+import clone from "@/library/clone";
+
 const localStorageItemName = "XpensityStatements"
 const statementList = {
-    cloneStatement(data: Statement | Statement[]){
-        return JSON.parse(JSON.stringify(data))
-    },
+    data: [] as Statement[],
     fetch(){
-        return JSON.parse(window.localStorage.getItem(localStorageItemName)||"[]") as Statement[]
-
+        this.data = JSON.parse(window.localStorage.getItem(localStorageItemName)||"[]") as Statement[]
+        return this.data;
     },
-    save(data: Statement | Statement[]){
-        return window.localStorage.setItem(localStorageItemName, JSON.stringify(data))
+    create(statement: Statement){
+        const statementClone = clone(statement);
+        statementClone.createdAt = new Date();
+        this.data.push(statementClone);
+    },
+    save(){
+        return window.localStorage.setItem(localStorageItemName, JSON.stringify(this.data))
     }
 }
 
