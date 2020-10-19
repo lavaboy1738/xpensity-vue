@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
+    import store from '@/store/index2';
     import Vue from 'vue'
     import {Component, Prop, Watch} from "vue-property-decorator";
-    import tagList from "../models/taglist.model";
     @Component
     export default class TagListing extends Vue {
         @Prop(Array) readonly dataSource: string[] | undefined;
@@ -32,7 +32,7 @@
         createTag(){
             const tagName = window.prompt("New Tag Name");
             if(tagName){
-                window.createTag(tagName)
+                store.createTag(tagName)
             }else{
                 window.alert("Tag Name Cannot Be Empty");
             }

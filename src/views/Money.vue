@@ -17,7 +17,7 @@
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
-
+    import store from "@/store/index2";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
 
@@ -32,9 +32,9 @@
         }
     })
     export default class Money extends Vue {
-        newTags = window.tagList;
+        newTags = store.tagList;
 
-        statements = window.statementList;
+        statements = store.statementList;
 
         singleStatement: Statement = {
             tag: "",
@@ -67,7 +67,7 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            window.createStatement(this.singleStatement);
+            store.createStatement(this.singleStatement);
         }
 
         // @Watch("statements")

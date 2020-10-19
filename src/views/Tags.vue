@@ -21,9 +21,9 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
-    import tagList from "@/models/taglist.model";
     import Layout from "../components/layout.vue";
     import DefaultButton from "../components/DefaultButton.vue";
+    import store from '@/store/index2';
 
     @Component({
         components:{
@@ -32,15 +32,12 @@
         }
     })
     export default class Tags extends Vue{
-        savedTags = window.tagList;
+        savedTags = store.tagList;
 
         createTag(){
             const tagName = window.prompt("New Tag Name");
             if(tagName){
-                const message = tagList.create(tagName);
-                if(message==="duplicated"){
-                    window.alert("Duplicated Tag Name")
-                }
+                store.createTag(tagName);
             }else{
                 window.alert("Tag Name Cannot Be Empty")
             }

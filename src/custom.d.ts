@@ -20,14 +20,16 @@ type TagList = {
     remove: (id: string) => boolean;
 }
 interface Window {
-    //tags
-    tagList: Tag[];
-    createTag: (name: string) => void;
-    removeTag: (id: string) => boolean;
-    updateTag: (id: string, newTagName: string) => "success" | "not found" | "duplicated";
-    findTag: (id: string) => Tag;
+    store: {
+        //tags
+        tagList: Tag[];
+        createTag: (name: string) => void;
+        removeTag: (id: string) => boolean;
+        updateTag: (id: string, newTagName: string) => "success" | "not found" | "duplicated";
+        findTag: (id: string) => Tag;
 
-    //statements
-    statementList: Statement[];
-    createStatement: (statement: Statement) => void;
+        //statements
+        statementList: Statement[];
+        createStatement: (statement: Statement) => void;
+    };
 }

@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
+    import store from '@/store/index2';
     import Vue from 'vue'
     import {Component} from "vue-property-decorator";
-    import tagList from "@/models/taglist.model";
     import DefaultButton from "../components/DefaultButton.vue";
 
     @Component({components:{DefaultButton}})
@@ -30,7 +30,7 @@
             this.$router.replace("/tags")
         }
         created(){
-            this.tag = window.findTag(this.$route.params.id);
+            this.tag = store.findTag(this.$route.params.id);
             if(!this.tag){
                 this.$router.replace("/404")
             }
@@ -52,7 +52,7 @@
             if(this.tag){
                 const newTagName = window.prompt("New Tag Name");
                 if(newTagName){
-                    const message = window.updateTag(this.tag.id, newTagName);
+                    const message = store.updateTag(this.tag.id, newTagName);
                     if(message === "duplicated"){
                         window.alert("Duplicated Tag Name");
                     }else{
@@ -65,7 +65,7 @@
         }
         remove(){
             if(this.tag){
-                if(window.removeTag(this.tag.id)){
+                if(store.removeTag(this.tag.id)){
                     window.alert("success");
                     this.$router.back();
                 }else{
