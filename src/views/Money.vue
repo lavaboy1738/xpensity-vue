@@ -18,7 +18,7 @@
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
     import statementList from "../models/statements.model";
-    import tagList from "../models/taglist.model";
+
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
     

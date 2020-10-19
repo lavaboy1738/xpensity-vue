@@ -25,41 +25,51 @@
     @Component({components:{DefaultButton}})
 
     export default class EditTag extends Vue{
-        tag?: {id: string; name: string} = undefined;
+        tag?: Tag = undefined;
         back(){
             this.$router.replace("/tags")
         }
         created(){
-            const id = this.$route.params.id
-            tagList.fetch();
-            const savedTags = tagList.data;
-            const tag = savedTags.filter(tag=> tag.id === id)[0]
-            if(tag){
-                this.tag = tag;
-            }else{
+            this.tag = window.findTag(this.$route.params.id);
+            if(!this.tag){
                 this.$router.replace("/404")
             }
         }
         edit(){
-            const id = this.$route.params.id
-            const newTagName = window.prompt("New Tag Name");
-            if(newTagName){
-                const message = tagList.update(id, newTagName);
-                if(message==="duplicated"){
-                    window.alert("Duplicated Tag Name")
+            // const id = this.$route.params.id
+            // const newTagName = window.prompt("New Tag Name");
+            // if(newTagName){
+            //     const message = tagList.update(id, newTagName);
+            //     if(message==="duplicated"){
+            //         window.alert("Duplicated Tag Name")
+            //     }else{
+            //         // this.$router.back(); original methods, but if user access this page directly, it won't work
+            //         this.$router.replace("/tags");
+            //     }
+            // }else{
+            //     window.alert("Tag Name Cannot Be Empty");
+            // }
+            if(this.tag){
+                const newTagName = window.prompt("New Tag Name");
+                if(newTagName){
+                    const message = window.updateTag(this.tag.id, newTagName);
+                    if(message === "duplicated"){
+                        window.alert("Duplicated Tag Name");
+                    }else{
+                        window.alert("Success");
+                    }
                 }else{
-                    // this.$router.back(); original methods, but if user access this page directly, it won't work
-                    this.$router.replace("/tags");
+                    window.alert("Tag Name Cannot Be Empty");
                 }
-            }else{
-                window.alert("Tag Name Cannot Be Empty");
             }
         }
         remove(){
             if(this.tag){
-                if(tagList.remove(this.tag.id)){
-                    // this.$router.back();
+                if(window.removeTag(this.tag.id)){
+                    window.alert("success");
                     this.$router.back();
+                }else{
+                    window.alert("failed")
                 }
             }
         }

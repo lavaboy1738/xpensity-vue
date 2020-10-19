@@ -22,4 +22,7 @@ type TagList = {
 interface Window {
     tagList: Tag[];
     createTag: (name: string) => void;
+    removeTag: (id: string) => boolean;
+    updateTag: (id: string, newTagName: string) => "success" | "not found" | "duplicated";
+    findTag: (id: string) => Tag;
 }
