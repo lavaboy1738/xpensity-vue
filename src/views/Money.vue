@@ -17,7 +17,7 @@
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
-    import store from "@/store/index2";
+    // import store from "@/store/index2";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
 
@@ -29,12 +29,16 @@
             TagsListing,
             Types,
             Comments
+        },
+        computed: {
+            statementList(){
+                return this.$store.state.statementList;
+            }
         }
     })
     export default class Money extends Vue {
-        newTags = store.tagList;
-
-        statements = store.statementList;
+        newTags = this.$store.state.tagList;
+        statements = this.$store.state.statementList;
 
         singleStatement: Statement = {
             tag: "",
@@ -42,6 +46,10 @@
             type: "-",
             amount: 0,
             createdAt: undefined
+        }
+
+        created(){
+            this.$store.commit("fetchStatements");
         }
 
         tags = ['fa-utensils',
@@ -67,7 +75,7 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            store.createStatement(this.singleStatement);
+            this.$store.commit("createStatement", this.statements);
         }
 
         // @Watch("statements")

@@ -20,10 +20,17 @@
     import store from '@/store/index2';
     import Vue from 'vue'
     import {Component, Prop, Watch} from "vue-property-decorator";
-    @Component
+    @Component({
+        computed: {
+            tagList(){
+                // return this.$store.fetchTags();
+                return
+            }
+        }
+    })
     export default class TagListing extends Vue {
         @Prop(Array) readonly dataSource: string[] | undefined;
-        @Prop(Array) readonly newTags: Tag[] | undefined;
+        newTags = store.fetchTags();
         selectedTag = "";
         select(tag: string){
             this.selectedTag = tag;
@@ -32,7 +39,7 @@
         createTag(){
             const tagName = window.prompt("New Tag Name");
             if(tagName){
-                store.createTag(tagName)
+                // store.createTag(tagName)
             }else{
                 window.alert("Tag Name Cannot Be Empty");
             }

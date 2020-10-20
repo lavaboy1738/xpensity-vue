@@ -1,15 +1,31 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import clone from "@/library/clone";
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const localStorageItemName = "XpensityStatements"
+
+const store = new Vuex.Store({
   state: {
+    statementList: [] as Statement[],
+    tagList: [] as Tag[]
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+  mutations: { 
+      fetchStatements(state){
+        state.statementList = JSON.parse(window.localStorage.getItem(localStorageItemName)||"[]") as Statement[];
+      },
+      createStatement(state, statement: Statement){
+        const statementClone = clone(statement);
+        statementClone.createdAt = new Date();
+        state.statementList.push(statementClone);
+        store.commit("saveStatements", state);
+      },
+      saveStatements(state){
+        window.localStorage.setItem(localStorageItemName, JSON.stringify(state.statementList))
+    }
   }
 })
+
+
+export default store;
