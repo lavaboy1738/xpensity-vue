@@ -5,7 +5,7 @@
             v-for="tag in dataSource" :key="tag"
             @click="select(tag)" :class="selectedTag === tag? 'selected':''"><i :class="`fas ${tag}`"></i></li>
             <li class="new-tag"
-            v-for="tag in newTags" :key="tag.id"
+            v-for="tag in this.$store.state.tagList" :key="tag.id"
             @click="select(tag)" :class="selectedTag === tag? 'selected':''">{{tag.name}}</li>
             <li class="tag create-tag">
                 <button @click="createTag">
@@ -17,21 +17,23 @@
 </template>
 
 <script lang="ts">
-    import store from '@/store/index2';
+    // import store from '@/store/index2';
     import Vue from 'vue'
     import {Component, Prop, Watch} from "vue-property-decorator";
     @Component({
         computed: {
             tagList(){
-                // return this.$store.fetchTags();
-                return
+                return this.$store.state.tagList;
             }
         }
     })
     export default class TagListing extends Vue {
         @Prop(Array) readonly dataSource: string[] | undefined;
-        newTags = store.fetchTags();
+
         selectedTag = "";
+        created(){
+            this.$store.commit("fetchTags", this.$store.state);
+        }
         select(tag: string){
             this.selectedTag = tag;
             this.$emit("selectedTag", this.selectedTag);
@@ -39,7 +41,7 @@
         createTag(){
             const tagName = window.prompt("New Tag Name");
             if(tagName){
-                // store.createTag(tagName)
+                this.$store.commit("createTag", tagName);
             }else{
                 window.alert("Tag Name Cannot Be Empty");
             }
