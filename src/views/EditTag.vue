@@ -17,61 +17,34 @@
 </template>
 
 <script lang="ts">
-    import store from '@/store/index2';
     import Vue from 'vue'
     import {Component} from "vue-property-decorator";
     import DefaultButton from "../components/DefaultButton.vue";
 
-    @Component({components:{DefaultButton}})
+    @Component({
+        components:{DefaultButton},
+    })
 
     export default class EditTag extends Vue{
-        tag?: Tag = undefined;
+        get tag(){
+            return this.$store.state.currentTag;
+        }
         back(){
             this.$router.replace("/tags")
         }
         created(){
-            this.tag = store.findTag(this.$route.params.id);
+            const id = this.$route.params.id;
+            this.$store.commit("fetchTags");
+            this.$store.commit("setCurrentTag", id);
             if(!this.tag){
                 this.$router.replace("/404")
             }
         }
         edit(){
-            // const id = this.$route.params.id
-            // const newTagName = window.prompt("New Tag Name");
-            // if(newTagName){
-            //     const message = tagList.update(id, newTagName);
-            //     if(message==="duplicated"){
-            //         window.alert("Duplicated Tag Name")
-            //     }else{
-            //         // this.$router.back(); original methods, but if user access this page directly, it won't work
-            //         this.$router.replace("/tags");
-            //     }
-            // }else{
-            //     window.alert("Tag Name Cannot Be Empty");
-            // }
-            if(this.tag){
-                const newTagName = window.prompt("New Tag Name");
-                if(newTagName){
-                    const message = store.updateTag(this.tag.id, newTagName);
-                    if(message === "duplicated"){
-                        window.alert("Duplicated Tag Name");
-                    }else{
-                        window.alert("Success");
-                    }
-                }else{
-                    window.alert("Tag Name Cannot Be Empty");
-                }
-            }
+            this.$store.commit("updateTag", this.tag);
         }
         remove(){
-            if(this.tag){
-                if(store.removeTag(this.tag.id)){
-                    window.alert("success");
-                    this.$router.back();
-                }else{
-                    window.alert("failed")
-                }
-            }
+            this.$store.commit("removeTag", this.tag.id);
         }
     }
 </script>

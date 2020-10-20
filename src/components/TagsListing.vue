@@ -5,7 +5,7 @@
             v-for="tag in dataSource" :key="tag"
             @click="select(tag)" :class="selectedTag === tag? 'selected':''"><i :class="`fas ${tag}`"></i></li>
             <li class="new-tag"
-            v-for="tag in this.$store.state.tagList" :key="tag.id"
+            v-for="tag in tagList" :key="tag.id"
             @click="select(tag)" :class="selectedTag === tag? 'selected':''">{{tag.name}}</li>
             <li class="tag create-tag">
                 <button @click="createTag">
@@ -17,9 +17,11 @@
 </template>
 
 <script lang="ts">
-    // import store from '@/store/index2';
     import Vue from 'vue'
     import {Component, Prop, Watch} from "vue-property-decorator";
+    import {TagHelper} from "@/mixins/TagHelper";
+    import {mixins} from "vue-class-component";
+
     @Component({
         computed: {
             tagList(){
@@ -27,7 +29,7 @@
             }
         }
     })
-    export default class TagListing extends Vue {
+    export default class TagListing extends mixins(TagHelper) {
         @Prop(Array) readonly dataSource: string[] | undefined;
 
         selectedTag = "";
@@ -38,14 +40,14 @@
             this.selectedTag = tag;
             this.$emit("selectedTag", this.selectedTag);
         }
-        createTag(){
-            const tagName = window.prompt("New Tag Name");
-            if(tagName){
-                this.$store.commit("createTag", tagName);
-            }else{
-                window.alert("Tag Name Cannot Be Empty");
-            }
-        }
+        // createTag(){
+        //     const tagName = window.prompt("New Tag Name");
+        //     if(tagName){
+        //         this.$store.commit("createTag", tagName);
+        //     }else{
+        //         window.alert("Tag Name Cannot Be Empty");
+        //     }
+        // }
 
         @Watch("selectedTag")
         onSelectedTagChanged(selectedTag: string){

@@ -30,15 +30,14 @@
             Types,
             Comments
         },
-        computed: {
-            statementList(){
-                return this.$store.state.statementList;
-            }
-        }
     })
     export default class Money extends Vue {
-        newTags = this.$store.state.tagList;
-        statements = this.$store.state.statementList;
+        get newTags(){
+            return this.$store.state.tagList;
+        }
+        get statements(){
+            return this.$store.state.statementList;
+        }
 
         singleStatement: Statement = {
             tag: "",

@@ -21,26 +21,24 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
+    import {mixins} from "vue-class-component";
     import Layout from "../components/layout.vue";
     import DefaultButton from "../components/DefaultButton.vue";
-    import store from '@/store/index2';
+    import {TagHelper} from "@/mixins/TagHelper";
+
 
     @Component({
         components:{
             Layout,
             DefaultButton
-        }
+        },
     })
-    export default class Tags extends Vue{
-        savedTags = store.tagList;
-
-        createTag(){
-            const tagName = window.prompt("New Tag Name");
-            if(tagName){
-                store.createTag(tagName);
-            }else{
-                window.alert("Tag Name Cannot Be Empty")
-            }
+    export default class Tags extends mixins(TagHelper){
+        get savedTags () {
+            return this.$store.state.tagList;
+        }
+        created(){
+            this.$store.commit("fetchTags");
         }
     }
 </script>
