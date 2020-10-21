@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" ref="setHeight">
         <div class="text-wrapper">
                 <div class="text-1 text"><slot/></div>
                 <div class="text-2 text"><slot/></div>
@@ -23,6 +23,9 @@
     @Component
     export default class Intro extends Vue{
         @Prop(String) readonly text: string| undefined;
+        mounted(){
+            this.$refs.setHeight.height = window.innerHeight;
+        }
     }
 </script>
 
@@ -191,7 +194,7 @@
             }
 
             .text {
-                font-size: 8vh;
+                font-size: 7vh;
             }
 
             body{

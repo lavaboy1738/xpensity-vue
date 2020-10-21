@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-wrapper">
+    <div class="layout-wrapper" ref="setHeight">
         <div class="content" :class="contentClass">
             <slot/>
         </div>
@@ -12,7 +12,10 @@ import Nav from "./Nav.vue";
 export default {
     name: "Layout",
     components: {Nav},
-    props:["contentClass"]
+    props:["contentClass"],
+    mounted(){
+        this.$refs.setHeight.height = window.innerHeight;
+    }
 }
 </script>
 
