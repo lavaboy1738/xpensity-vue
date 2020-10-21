@@ -21,6 +21,7 @@ export default{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $secondary-color;
+  touch-action: manipulation;
 }
 
 </style>

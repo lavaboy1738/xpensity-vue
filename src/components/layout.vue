@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-wrapper" ref="setHeight">
+    <div class="layout-wrapper" v-setHeight>
         <div class="content" :class="contentClass">
             <slot/>
         </div>
@@ -13,9 +13,6 @@ export default {
     name: "Layout",
     components: {Nav},
     props:["contentClass"],
-    mounted(){
-        this.$refs.setHeight.height = window.innerHeight;
-    }
 }
 </script>
 
@@ -23,7 +20,6 @@ export default {
 .layout-wrapper{
     display: flex;
     flex-direction: column;
-    height: 88vh;
 }
 
 .content{

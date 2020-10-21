@@ -16,6 +16,13 @@ Vue.config.productionTip = false
 Vue.component("Layout", Layout);
 Vue.component("Nav", Nav);
 
+Vue.directive("setHeight", {
+  bind(el){
+    const properHeight = window.innerHeight;
+    el.style.height = `${properHeight}px`;
+  }
+})
+
 new Vue({
   router,
   store,

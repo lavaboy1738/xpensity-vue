@@ -1,5 +1,5 @@
 <template>
-    <div class="container" ref="setHeight">
+    <div class="container" v-setHeight>
         <div class="text-wrapper">
                 <div class="text-1 text"><slot/></div>
                 <div class="text-2 text"><slot/></div>
@@ -23,9 +23,6 @@
     @Component
     export default class Intro extends Vue{
         @Prop(String) readonly text: string| undefined;
-        mounted(){
-            this.$refs.setHeight.height = window.innerHeight;
-        }
     }
 </script>
 
@@ -37,7 +34,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 88vh;
     margin: 0px auto;
     display: flex;
     justify-content: center;
@@ -104,7 +100,7 @@
         }
 
         .text-6 {
-            animation: blink 0.8s linear 0.4s, blink 0.8s linear 2.5s, slide-out 1s linear 3.2s;
+            animation: blink 0.8s linear 0.4s, blink 0.8s linear 2.5s, slide-out 1s linear 3.2s, slide-out 0.8s ease 4s, slide-out 0.5s ease 4.8s;
             opacity: 0;
         }
 
@@ -141,10 +137,24 @@
                 opacity: 100%;
             }
 
-            19% {
+            9% {
                 opacity: 100%;
             }
+            10% {
+                opacity: 0%;
+            }
+
+            19% {
+                opacity: 0%;
+            }
             20% {
+                opacity: 100%;
+            }
+
+            29% {
+                opacity: 100%;
+            }
+            30% {
                 opacity: 0%;
             }
 
@@ -155,11 +165,26 @@
                 opacity: 100%;
             }
 
-            59% {
+            49% {
                 opacity: 100%;
             }
-            60% {
+
+            50%{
+                opacity: 0;
+            }
+            59% {
                 opacity: 0%;
+            }
+            60% {
+                opacity: 100%;
+            }
+
+            69% {
+                opacity: 100%;
+            }
+
+            70%{
+                opacity: 0;
             }
 
             79% {
@@ -169,22 +194,30 @@
                 opacity: 100%;
             }
 
-            100% {
+            89% {
+                opacity: 100%;
+            }
+
+            90%{
+                opacity: 0;
+            }
+
+            95%{
                 opacity: 100%;
             }
         }
 
         @keyframes slide-out-container {
             0% {
-                height: 88vh;
+                top: 0;
             }
 
             40% {
-                height: 88vh;
+                top: 0;
             }
 
             100% {
-                height: 0%;
+                top: -120%;
             }
         }
 
@@ -195,10 +228,6 @@
 
             .text {
                 font-size: 7vh;
-            }
-
-            body{
-                height: 88vh;
             }
         }
     }

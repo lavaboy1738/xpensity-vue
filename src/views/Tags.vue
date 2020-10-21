@@ -1,6 +1,7 @@
 <template>
     <div>
         <Layout>
+            <div class="top-nav">Custom Tags</div>
             <div class="tag-list">
                 <router-link 
                 :to="`/tags/edit/${tag.id}`"
@@ -45,6 +46,15 @@
 
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
+    .top-nav{
+        text-align: center;
+        min-height: 2.2em;
+        line-height: 2.2em;
+        padding: 0 0.5em;
+        font-size: 2em;
+        border-bottom: 1px solid #e6e6e6;
+        background-color: white;
+    }
     .tag-list{
         background-color: white;
         font-size: 1.6em;
