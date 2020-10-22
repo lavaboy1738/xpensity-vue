@@ -34,6 +34,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 10;
     margin: 0px auto;
     display: flex;
     justify-content: center;
@@ -100,7 +101,7 @@
         }
 
         .text-6 {
-            animation: blink 0.8s linear 0.4s, blink 0.8s linear 2.5s, slide-out 1s linear 3.2s, slide-out 0.8s ease 4s, slide-out 0.5s ease 4.8s;
+            animation: blink 0.8s linear 0.4s, blink 0.8s linear 2.5s, slide-out 1s linear 3.2s, slide-out 0.8s ease 4s, slide-out 0.6s 4.5s;
             opacity: 0;
         }
 

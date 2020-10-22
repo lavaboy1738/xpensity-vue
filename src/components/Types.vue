@@ -2,9 +2,9 @@
     <div class="types">
         <ul>
             <li class="type left" :class="this.type==='-'? 'selected':''" @click="selectType('-')">
-                Expenditure</li>
+                <span>Expenditure</span></li>
             <li class="type right" :class="this.type==='+'? 'selected':''" @click="selectType('+')">
-                Income</li>
+                <span>Income</span></li>
         </ul>
     </div>
 </template>
@@ -66,6 +66,10 @@
                 position: relative;
                 overflow: hidden;
 
+                span{
+                    z-index: 2;
+                }
+
                 //below is for the animation
 
                 &::after {
@@ -74,7 +78,7 @@
                     height: 0.1em;
                     width: 100%;
                     bottom: 0;
-                    transition: 0.4s all ease-in;
+                    transition: 0.4s all cubic-bezier(0,.45,.52,1.01);
                     background-color: $secondary-color;
                 }
 
