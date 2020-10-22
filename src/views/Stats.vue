@@ -2,7 +2,7 @@
     <div>
         <Layout>
             <Types class="top-nav" :type.sync="type"></Types>
-            <Tabs :data-source="array" :viewType.sync="viewType" ></Tabs>
+            <Tabs :data-source="viewTypes" :viewType.sync="viewType" ></Tabs>
         </Layout>
     </div>
 </template>
@@ -13,6 +13,7 @@
     import Types from "../components/Types.vue";
     import Tabs from "../components/Tabs.vue";
     import {Component} from "vue-property-decorator";
+    import viewTypes from "@/constants/viewtypes.ts";
     @Component({
         components:{
             Layout,
@@ -23,11 +24,7 @@
     export default class Stats extends Vue{
         type="-";
         viewType = "day";
-        array=[
-            {text:"Day", viewType:"day"},
-            {text:"Week", viewType:"week"},
-            {text:"Month", viewType:"month"},
-        ];
+        viewTypes = viewTypes;
     }
 </script>
 

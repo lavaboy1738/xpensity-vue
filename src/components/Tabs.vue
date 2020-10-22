@@ -47,6 +47,9 @@
             overflow: hidden;
 
             &.selected{
+                font-weight: 300;
+                transition: 0.3s all ease;
+
                 &::before{
                     position: absolute;
                     content: "";

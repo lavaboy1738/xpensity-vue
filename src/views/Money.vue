@@ -17,6 +17,7 @@
     import TagsListing from "../components/TagsListing.vue";
     import Types from "../components/Types.vue";
     import Comments from "../components/Comments.vue";
+    import tags from "@/constants/tags";
     // import store from "@/store/index2";
 
     window.localStorage.setItem("XpensityVersion", "0.0.1");
@@ -51,18 +52,7 @@
             this.$store.commit("fetchStatements");
         }
 
-        tags = ['fa-utensils',
-            'fa-shopping-cart',
-            'fa-bus',
-            'fa-home',
-            'fa-tools',
-            'fa-first-aid',
-            'fa-piggy-bank',
-            'fa-running',
-            'fa-plane',
-            'fa-paw',
-            'fa-baby'
-        ]
+        tags = tags;
 
         updateSelectedTag(selectedTag: string){
             this.singleStatement.tag = selectedTag;
