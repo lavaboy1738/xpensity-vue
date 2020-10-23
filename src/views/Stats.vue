@@ -6,27 +6,21 @@
                 <Tabs :data-source="viewTypes" :viewType.sync="viewType" ></Tabs>
                 <div class="details">
                     <ul>
-                        <li v-for="(date, index) in results()" :key="index">
-                            <div class="date">{{convertDate(index)}}</div>
-                            <div v-for="(item, index) in date" :key="index" class="records">
-                                <div v-if="index==='original'">
-                                    <ul>
-                                        <li v-for="(record, index) in item" :key="index" class="record">
-                                            <i class="original-tag" :class="`fas ${record.tag}`"></i>
-                                            <span class="comments">{{record.comment}}</span>
-                                            <span class="amount">${{record.amount}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div v-else>
-                                    <ul>
-                                        <li v-for="(record, index) in item" :key="index" class="record">
-                                            <span class="custom-tag">{{record.tag.name}}</span>
-                                            <span class="comments">{{record.comment}}</span>
-                                            <span class="amount">${{record.amount}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <li v-for="(date, index) in groupedList" :key="index">
+                            <div class="date">{{convertDate(date.title)}}</div>
+                            <div v-for="(item, index) in date.items" :key="index" class="records">
+                                <ul>
+                                    <li v-for="(originalTagStatement, index) in item.original" :key="index" class="record">
+                                            <i class="original-tag" :class="`fas ${originalTagStatement.tag}`"></i>
+                                            <span class="comments">{{originalTagStatement.comment}}</span>
+                                            <span class="amount">${{originalTagStatement.amount}}</span>
+                                    </li>
+                                    <li v-for="(addedTagStatement) in item.added" :key="Number(addedTagStatement.tag.id+index)" class="record">
+                                            <span class="custom-tag">{{addedTagStatement.tag.name}}</span>
+                                            <span class="comments">{{addedTagStatement.comment}}</span>
+                                            <span class="amount">${{addedTagStatement.amount}}</span>
+                                    </li>
+                                </ul>
                             </div>
                         </li>
                     </ul>
@@ -44,11 +38,7 @@
     import {Component} from "vue-property-decorator";
     import viewTypes from "@/constants/viewtypes.ts";
     import dayjs from "dayjs";
-
-    type SplitByDate = {
-        groupType: string;
-        value: Statement[]|[];
-    }
+    import clone from "@/library/clone";
 
     const oneDay = 86400*1000;
 
@@ -87,26 +77,42 @@
             }
         }
 
-        results(){
-            const statements = this.statements;
-            const prepHashTable: {[key: string]: Statement[]} = {};
-            const finalHashTable: {[key: string]: SplitByDate[]} = {};
-            for(let i = 0; i<this.statements.length; i++){
-                const [date, time] = statements[i].createdAt.split("T");
-                prepHashTable[date] = prepHashTable[date] || [];
-                prepHashTable[date].push(statements[i]);
-            }
-            for(const date in prepHashTable){
-                finalHashTable[date] = {"original":[], "added":[]};
-                for(const item in prepHashTable[date]){
-                    if(typeof prepHashTable[date][item].tag === "string"){
-                        finalHashTable[date]["original"].push(prepHashTable[date][item]);
+        get groupedList(){
+            const {statements} = this;
+            if(statements.length ===0){return []}
+            const newList = clone(statements).sort((a,b)=> dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+            const finalArray = [];
+            let currentDateIndex = 0;
+            for(let i = 0; i< newList.length; i++){
+                const currentItemDate = dayjs(newList[i].createdAt).format("YYYY-MM-DD")
+                if(!finalArray[currentDateIndex]){
+                    const object = {title: currentItemDate,
+                    items:[{"original": []}, {"added":[]}]}
+                    finalArray.push(object);
+                    if(typeof newList[i].tag === "string"){
+                            finalArray[currentDateIndex].items[0].original.push(newList[i])
+                        }else{
+                            finalArray[currentDateIndex].items[1].added.push(newList[i])
+                        }
+                }else if (finalArray[currentDateIndex] && finalArray[currentDateIndex].title === currentItemDate){
+                        if(typeof newList[i].tag === "string"){
+                            finalArray[currentDateIndex].items[0].original.push(newList[i])
+                        }else{
+                            finalArray[currentDateIndex].items[1].added.push(newList[i])
+                        }
+                }else{
+                    const object = {title: currentItemDate,
+                    items:[{"original": []}, {"added":[]}]}
+                    finalArray.push(object);
+                    currentDateIndex++
+                    if(typeof newList[i].tag === "string"){
+                        finalArray[currentDateIndex].items[0].original.push(newList[i])
                     }else{
-                        finalHashTable[date]["added"].push(prepHashTable[date][item]);
+                        finalArray[currentDateIndex].items[1].added.push(newList[i])
                     }
                 }
             }
-            return finalHashTable;
+            return finalArray;
         }
     }
 </script>
