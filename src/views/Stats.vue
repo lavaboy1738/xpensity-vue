@@ -7,7 +7,7 @@
                 <div class="details">
                     <ul>
                         <li v-for="(date, index) in results()" :key="index">
-                            <div class="date">{{index}}</div>
+                            <div class="date">{{convertDate(index)}}</div>
                             <div v-for="(item, index) in date" :key="index" class="records">
                                 <div v-if="index==='original'">
                                     <ul>
@@ -43,11 +43,14 @@
     import Tabs from "../components/Tabs.vue";
     import {Component} from "vue-property-decorator";
     import viewTypes from "@/constants/viewtypes.ts";
+    import dayjs from "dayjs";
 
     type SplitByDate = {
         groupType: string;
         value: Statement[]|[];
     }
+
+    const oneDay = 86400*1000;
 
     @Component({
         components:{
@@ -59,7 +62,7 @@
 
     export default class Stats extends Vue{
         get statements(){
-            return this.$store.state.statementList;
+            return (this.$store.state as RootState).statementList;
         }
 
         type="-";
@@ -68,6 +71,20 @@
 
         created(){
             this.$store.commit("fetchStatements");
+        }
+
+        convertDate(string: string){
+            const day = dayjs(string);
+            const now = new Date();
+            if(day.isSame(now, "day")){
+                return "Today";
+            }else if(day.isSame(now.valueOf() - oneDay, "day")){
+                return "Yesterday";
+            }else if(day.isSame(now, "year")){
+                return day.format("MMM DD");
+            }else{
+                return day.format("YYYY/MM/DD");
+            }
         }
 
         results(){

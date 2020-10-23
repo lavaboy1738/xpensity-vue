@@ -6,6 +6,13 @@ type Statement = {
     createdAt: Date | undefined;
 }
 
+
+type RootState = {
+    statementList: Statement[];
+    tagList: Tag[];
+    currentTag?: Tag;
+  }
+
 type Tag = {
     id: string;
     name: string;
