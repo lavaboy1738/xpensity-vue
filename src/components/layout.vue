@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-wrapper" v-setHeight>
+    <div class="layout-wrapper" :style="{height: `${height}px`}">
         <div class="content" :class="contentClass">
             <slot/>
         </div>
@@ -13,6 +13,11 @@ export default {
     name: "Layout",
     components: {Nav},
     props:["contentClass"],
+    data(){
+        return {
+            height: window.innerHeight
+        }
+    }
 }
 </script>
 

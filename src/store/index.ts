@@ -27,9 +27,10 @@ const store = new Vuex.Store({
       },
       createStatement(state, statement: Statement){
         const statementClone = clone(statement);
-        statementClone.createdAt = new Date();
+        statementClone.createdAt = new Date().toISOString();
         state.statementList.push(statementClone);
         store.commit("saveStatements", state);
+        window.alert("Success");
       },
       saveStatements(state){
         window.localStorage.setItem(storageStatementName, JSON.stringify(state.statementList))
@@ -42,7 +43,10 @@ const store = new Vuex.Store({
       },
       createTag(state, tagName: string) {
         const names = state.tagList.map(item => item.name);
-        if(names.indexOf(tagName)>=0){
+        if(tagName.includes(" ")){
+            window.alert("No Spaces Allowed")
+            return
+        }else if(names.indexOf(tagName)>=0){
             window.alert("Duplicated Tag Name")
         }
         const id = generateId().toString();

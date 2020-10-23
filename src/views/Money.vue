@@ -64,7 +64,7 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
-            this.$store.commit("createStatement", this.statements);
+            this.$store.commit("createStatement", this.singleStatement);
         }
 
         // @Watch("statements")

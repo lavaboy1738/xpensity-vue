@@ -18,6 +18,7 @@
     .nav {
         display: flex;
         @extend %shadow;
+        min-height: 40px;
 
         .item {
             width: 33.33333%;

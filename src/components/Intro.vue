@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-setHeight>
+    <div class="container" :style="{height: `${height}px`}">
         <div class="text-wrapper">
                 <div class="text-1 text"><slot/></div>
                 <div class="text-2 text"><slot/></div>
@@ -23,6 +23,7 @@
     @Component
     export default class Intro extends Vue{
         @Prop(String) readonly text: string| undefined;
+        height=window.innerHeight;
     }
 </script>
 
