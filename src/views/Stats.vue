@@ -3,11 +3,13 @@
         <Layout>
             <div class="wrapper">
                 <Types class="top-nav" :type.sync="type"></Types>
-                <Tabs :data-source="viewTypes" :viewType.sync="viewType" ></Tabs>
                 <div class="details">
                     <ul>
                         <li v-for="(date, index) in groupedList" :key="index">
-                            <div class="date">{{convertDate(date.title)}}</div>
+                            <div class="date">
+                                <span class="date-current">{{convertDate(date.title)}}</span>
+                                <span class="date-total">{{`$${date.items[2].total}`}}</span>
+                            </div>
                             <div v-for="(item, index) in date.items" :key="index" class="records">
                                 <ul>
                                     <li v-for="(originalTagStatement, index) in item.original" :key="index" class="record">
@@ -34,9 +36,7 @@
     import Vue from "vue";
     import Layout from "../components/layout.vue";
     import Types from "../components/Types.vue";
-    import Tabs from "../components/Tabs.vue";
     import {Component} from "vue-property-decorator";
-    import viewTypes from "@/constants/viewtypes.ts";
     import dayjs from "dayjs";
     import clone from "@/library/clone";
 
@@ -46,7 +46,6 @@
         components:{
             Layout,
             Types,
-            Tabs
         },
     })
 
@@ -56,8 +55,6 @@
         }
 
         type="-";
-        viewType = "day";
-        viewTypes = viewTypes;
 
         created(){
             this.$store.commit("fetchStatements");
@@ -80,35 +77,41 @@
         get groupedList(){
             const {statements} = this;
             if(statements.length ===0){return []}
-            const newList = clone(statements).sort((a,b)=> dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+            const newList = clone(statements).filter(item => item.type === this.type).sort((a,b)=> dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
             const finalArray = [];
             let currentDateIndex = 0;
             for(let i = 0; i< newList.length; i++){
                 const currentItemDate = dayjs(newList[i].createdAt).format("YYYY-MM-DD")
                 if(!finalArray[currentDateIndex]){
                     const object = {title: currentItemDate,
-                    items:[{"original": []}, {"added":[]}]}
+                    items:[{"original": []}, {"added":[]}, {"total": 0}]}
                     finalArray.push(object);
                     if(typeof newList[i].tag === "string"){
                             finalArray[currentDateIndex].items[0].original.push(newList[i])
+                            finalArray[currentDateIndex].items[2].total += newList[i].amount
                         }else{
                             finalArray[currentDateIndex].items[1].added.push(newList[i])
+                            finalArray[currentDateIndex].items[2].total += newList[i].amount
                         }
                 }else if (finalArray[currentDateIndex] && finalArray[currentDateIndex].title === currentItemDate){
                         if(typeof newList[i].tag === "string"){
                             finalArray[currentDateIndex].items[0].original.push(newList[i])
+                            finalArray[currentDateIndex].items[2].total += newList[i].amount
                         }else{
                             finalArray[currentDateIndex].items[1].added.push(newList[i])
+                            finalArray[currentDateIndex].items[2].total += newList[i].amount
                         }
                 }else{
                     const object = {title: currentItemDate,
-                    items:[{"original": []}, {"added":[]}]}
+                    items:[{"original": []}, {"added":[]}, {"total": 0}]}
                     finalArray.push(object);
                     currentDateIndex++
                     if(typeof newList[i].tag === "string"){
                         finalArray[currentDateIndex].items[0].original.push(newList[i])
+                        finalArray[currentDateIndex].items[2].total += newList[i].amount
                     }else{
                         finalArray[currentDateIndex].items[1].added.push(newList[i])
+                        finalArray[currentDateIndex].items[2].total += newList[i].amount
                     }
                 }
             }
@@ -123,10 +126,10 @@
         display: flex;
         flex-direction: column;
         .top-nav ::v-deep li{
-            background-color: lighten($primary-color, 10%);
+            background-color: $primary-color;
             &::after{
                 height: 100% !important;
-                background-color: $primary-color !important;
+                background-color: lighten($primary-color, 10%) !important;
             }
         }
         .details{
@@ -138,6 +141,8 @@
                 font-weight: 300;
                 font-size: 1.2rem;
                 background-color: lighten($primary-color, 12%);
+                display: flex;
+                justify-content: space-between;
             }
             .records{
                 padding: 0 1rem;
