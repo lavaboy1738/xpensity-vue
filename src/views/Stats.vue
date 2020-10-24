@@ -139,10 +139,10 @@
         display: flex;
         flex-direction: column;
         .top-nav ::v-deep li{
-            background-color: $primary-color;
+            background-color: lighten($primary-color, 10%);
             &::after{
                 height: 100% !important;
-                background-color: lighten($primary-color, 10%) !important;
+                background-color: $primary-color !important;
             }
         }
         .details{
@@ -153,7 +153,7 @@
                 height: 2rem;
                 font-weight: 300;
                 font-size: 1.2rem;
-                background-color: lighten($primary-color, 12%);
+                background-color: lighten($primary-color, 5%);
                 display: flex;
                 justify-content: space-between;
             }
