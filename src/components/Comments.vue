@@ -1,21 +1,20 @@
 <template>
             <div class="comments">
                 <!-- <input type="text" placeholder="add comments" :value="value" @input="onInput"> -->
-                <input type="text" placeholder = "add comments" v-model="value">
+                <input type="text" placeholder = "add comments" :value="value" @input="onValueChanged($event.target.value)">
             </div>
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Watch} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
     @Component
     export default class Comments extends Vue{
-        value = "";
+        @Prop({default: ''}) readonly value!: string;
         // onInput(event: KeyboardEvent){
         //     const input = event.target as HTMLInputElement;
         //     this.value = input.value;
         // }
-        @Watch("value")
         onValueChanged(value: string){
             this.$emit("update:value", value);
         }

@@ -3,7 +3,7 @@
         <Layout>
             <div class="wrapper">
                 <Types class="top-nav" :type.sync="type"></Types>
-                <div class="details">
+                <div v-if="groupedList.length > 0" class="details">
                     <ul>
                         <li v-for="(date, index) in groupedList" :key="index">
                             <div class="date">
@@ -26,6 +26,9 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="no-statements" v-else>
+                    No Statements Available
                 </div>
             </div>
         </Layout>
@@ -173,6 +176,13 @@
                     }
                 }
             }
+        }
+        .no-statements{
+            font-size: 1.2rem;
+            font-weight: 200;
+            text-align: center;
+            margin-top: 10rem;
+            opacity: 0.6;
         }
     }
 </style>

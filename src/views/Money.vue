@@ -3,7 +3,7 @@
         <Layout content-class="layout">
             <Numpad @update:value="confirmAmount" @submit="addStatement" />
             <Types :type.sync="singleStatement.type"/>
-            <Comments @update:value="updateComments" />
+            <Comments @update:value="updateComments" :value="singleStatement.comment"/>
             <TagsListing :data-source="tags" :newTags.sync="newTags" @update:selectedTag = "updateSelectedTag"/>
         </Layout>
     </div>
@@ -64,7 +64,11 @@
             this.singleStatement.amount = Number(num);
         }
         addStatement(){
+            if(!this.singleStatement.tag || this.singleStatement.tag.length === 0){
+                return window.alert("Please Pick A Tag");
+            }
             this.$store.commit("createStatement", this.singleStatement);
+            this.singleStatement.comment = ""
         }
 
         // @Watch("statements")

@@ -2,7 +2,7 @@
     <div>
         <Layout>
             <div class="top-nav">Custom Tags</div>
-            <div class="tag-list">
+            <div class="tag-list" v-if="this.savedTags.length>0">
                 <router-link 
                 :to="`/tags/edit/${tag.id}`"
                 v-for="tag in savedTags" 
@@ -12,6 +12,7 @@
                     <i class="fas fa-chevron-right"></i>
                 </router-link>
             </div>
+            <div class="no-tags" v-else>No Custom Tags</div>
             <div class="button-wrapper">
                 <DefaultButton @click.native="createTag">New Tag</DefaultButton>
             </div>
@@ -69,6 +70,14 @@
         i{
             color: $primary-color;
         }
+    }
+
+    .no-tags{
+            font-size: 1.2rem;
+            font-weight: 200;
+            text-align: center;
+            margin-top: 10rem;
+            opacity: 0.6;
     }
 
     .button-wrapper{
