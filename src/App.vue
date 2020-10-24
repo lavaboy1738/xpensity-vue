@@ -1,15 +1,27 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <Intro>Xpensity</Intro>
+    <div v-if="width < 500">
+      <router-view></router-view>
+      <Intro>Xpensity</Intro>
+    </div>
+    <div v-else>
+      <Intro>Xpensity</Intro>
+      <Desktop/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Intro from "./components/Intro.vue";
+import Desktop from "@/views/Desktop.vue";
 export default{
   name: "App",
-  components: {Intro}
+  components: {Intro, Desktop},
+  data: function(){
+    return {
+      width : window.innerWidth
+    }
+  }
 }
 </script>
 
