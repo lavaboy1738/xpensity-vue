@@ -43,6 +43,16 @@
     import dayjs from "dayjs";
     import clone from "@/library/clone";
 
+
+    type dayTotal = {
+        title: string;
+        items: [
+            {"original": Statement[]| undefined},
+            {"added": Statement[]| undefined},
+            {"total": number| undefined}
+        ];
+    } | undefined;
+
     const oneDay = 86400*1000;
 
     @Component({
@@ -81,7 +91,7 @@
             const {statements} = this;
             if(statements.length ===0){return []}
             const newList = clone(statements).filter(item => item.type === this.type).sort((a,b)=> dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-            const finalArray = [];
+            const finalArray: any|undefined = [];
             let currentDateIndex = 0;
             for(let i = 0; i< newList.length; i++){
                 const currentItemDate = dayjs(newList[i].createdAt).format("YYYY-MM-DD")
@@ -105,7 +115,7 @@
                             finalArray[currentDateIndex].items[2].total += newList[i].amount
                         }
                 }else{
-                    const object = {title: currentItemDate,
+                    const object: dayTotal = {title: currentItemDate,
                     items:[{"original": []}, {"added":[]}, {"total": 0}]}
                     finalArray.push(object);
                     currentDateIndex++

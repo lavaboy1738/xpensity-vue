@@ -31,8 +31,8 @@
             const input = button.textContent;
             if(this.output.length === 10){return}
             if ( this.output === "0") {
-                if("0123456789".indexOf(input) >= 0){
-                    this.output = input;
+                if("0123456789".indexOf(input!) >= 0){
+                    this.output = input!;
                 }else{
                     this.output += input;
                 }

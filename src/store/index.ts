@@ -26,7 +26,7 @@ const store = new Vuex.Store({
         state.statementList = JSON.parse(window.localStorage.getItem(storageStatementName)||"[]") as Statement[];
       },
       createStatement(state, statement: Statement){
-        const statementClone = clone(statement);
+        const statementClone: Statement = clone(statement);
         statementClone.createdAt = new Date().toISOString();
         state.statementList.push(statementClone);
         store.commit("saveStatements", state);

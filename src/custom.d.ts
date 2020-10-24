@@ -3,7 +3,7 @@ type Statement = {
     comment: string;
     type: string;
     amount: number;
-    createdAt: Date | undefined;
+    createdAt: Date | string| undefined;
 }
 
 

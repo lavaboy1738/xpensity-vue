@@ -61,21 +61,6 @@
             color: lighten($primary-color, 10%)
         }
 
-        @keyframes blink {
-            0% {
-                opacity: 0%;
-            }
-            1% {
-                opacity: 100%;
-            }
-            99% {
-                opacity: 100%;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
         .text-1 {
             animation: blink 0.8s linear 0.9s, blink 0.8s linear 2s;
             opacity: 0;
@@ -131,58 +116,73 @@
             opacity: 0;
         }
 
-        @keyframes slide-out {
+        @keyframes blink {
             0% {
-                opacity: 0%;
+                opacity: 0;
             }
             1% {
-                opacity: 100%;
+                opacity: 1;
+            }
+            99% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0%;
+            }
+        }
+
+        @keyframes slide-out {
+            0% {
+                opacity: 0;
+            }
+            1% {
+                opacity: 1;
             }
 
             9% {
-                opacity: 100%;
+                opacity: 1;
             }
             10% {
-                opacity: 0%;
+                opacity: 0;
             }
 
             19% {
-                opacity: 0%;
+                opacity: 0;
             }
             20% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             29% {
-                opacity: 100%;
+                opacity: 1;
             }
             30% {
-                opacity: 0%;
+                opacity: 0;
             }
 
             39% {
-                opacity: 0%;
+                opacity: 0;
             }
             40% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             49% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             50%{
                 opacity: 0;
             }
             59% {
-                opacity: 0%;
+                opacity: 0;
             }
             60% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             69% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             70%{
@@ -190,14 +190,14 @@
             }
 
             79% {
-                opacity: 0%;
+                opacity: 0;
             }
             80% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             89% {
-                opacity: 100%;
+                opacity: 1;
             }
 
             90%{
@@ -205,7 +205,7 @@
             }
 
             95%{
-                opacity: 100%;
+                opacity: 1;
             }
         }
 
